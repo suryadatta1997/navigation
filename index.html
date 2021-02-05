@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Keyboard grid navigation</title>
+    <style>
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        ul {
+            width: 1000px;
+        }
+
+        li {
+            float: left;
+            padding: 10px;
+        }
+
+        button {
+            display: block;
+            width: 60px;
+            height: 60px;
+            margin: 5px;
+            font-size: 20px;
+            border: none;
+        }
+
+        button:focus {
+            background: yellow;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <ul>
+        <li><button>1</button></li>
+        <li><button>2</button></li>
+        <li><button>3</button></li>
+        <li><button>4</button></li>
+        <li><button>5</button></li>
+        <li><button>6</button></li>
+        <li><button>7</button></li>
+        <li><button>8</button></li>
+        <li><button>9</button></li>
+        <li><button>10</button></li>
+        <li><button>11</button></li>
+        <li><button>12</button></li>
+        <li><button>13</button></li>
+        <li><button>14</button></li>
+        <li><button>15</button></li>
+        <li><button>16</button></li>
+        <li><button>17</button></li>
+        <li><button>18</button></li>
+        <li><button>19</button></li>
+        <li><button>20</button></li>
+        <li><button>21</button></li>
+        <li><button>22</button></li>
+        <li><button>23</button></li>
+        <li><button>24</button></li>
+        <li><button>25</button></li>
+    </ul>
+
+    <script>
+        (function () {
+            var list = document.querySelector('ul');
+            var width = list.offsetWidth;
+            var itemwidth = list.firstElementChild.offsetWidth;
+            var addto = Math.floor(width / itemwidth);
+            var allbuttons = list.querySelectorAll('button');
+            var all = allbuttons.length;
+            var codes = {
+                40: addto,
+                38: -addto,
+                39: 1,
+                37: -1
+            }
+            var keys = {
+                up: "Up",
+                down: "Down",
+                right: "Right",
+                left: "Left",
+            }
+            function getkey(ev) {
+                var current = ev.target;
+                for (var i = 0; i < all; i++) {
+                    if (allbuttons[i] === current) {
+                        break;
+                    }
+                }
+                if (allbuttons[i + codes[ev.keyCode]]) {
+                    allbuttons[i + codes[ev.keyCode]].focus();
+                } else if (allbuttons[i + keys[ev.key]]) {
+                    allbuttons[i + keys[ev.key]].focus();
+                }
+            }
+            list.addEventListener('keydown', getkey);
+        })();
+    </script>
+
+
+</body>
+
+</html>
